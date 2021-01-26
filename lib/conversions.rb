@@ -9,8 +9,8 @@ module Conversions
   end
 
   def coordinates_to_index(coordinates)
-    coordinates[0] = x
-    coordinates[1] = y
+    x = coordinates[0]
+    y = coordinates[1]
     x + (y * 8)
   end
 end
