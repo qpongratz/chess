@@ -16,28 +16,14 @@ class Piece
   end
 
   def update_sight
-    @sight = transformations.map do |direction|
+    @sight = transformations.map do |transformation|
       line = [position]
-      while line.length <= range do
-        new_x = line.last[0] + direction[0]
-        new_y = line.last[1] + direction[1]
+      range.times do
+        new_x = line.last[0] + transformation[0]
+        new_y = line.last[1] + transformation[1]
         line.push([new_x, new_y])
       end
       line
     end
-  end
-
-  private
-
-  def line_of_coordinate(coord)
-    Array.new(range, coord)
-  end
-
-  def x
-    position[0]
-  end
-
-  def y
-    position[1]
   end
 end
