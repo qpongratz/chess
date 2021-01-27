@@ -1,18 +1,38 @@
 # frozen_string_literal: true
 
+require_relative '../conversions'
+
 # Controls the things all pieces need to be able to do.
 class Piece
-  attr_reader :color, :position, :sight
+  include Conversions
+
+  attr_reader :color, :position, :sight, :range
 
   def initialize(color, position)
     @color = color
     @position = index_to_coordinates(position)
     post_initialize
+    @range = 7
+    update_sight
   end
 
   def position=(position)
     @position = index_to_coordinates(position)
     update_sight
+  end
+
+  private
+
+  def orthogonal
+    [[1, 0], [-1, 0], [0, 1], [0, -1]]
+  end
+  
+  def diagonal
+    [[1, 1], [-1, -1], [-1, 1], [1, -1]]
+  end
+
+  def post_initialize
+    nil
   end
 
   def update_sight
