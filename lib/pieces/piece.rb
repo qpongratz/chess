@@ -2,7 +2,7 @@
 
 # Controls the things all pieces need to be able to do.
 class Piece
-  attr_reader :color, :position
+  attr_reader :color, :position, :sight
 
   def initialize(color, position)
     @color = color
@@ -14,6 +14,21 @@ class Piece
     @position = index_to_coordinates(position)
     update_sight
   end
+
+  def update_sight
+    @sight = transformations.map do |direction|
+      line = [position]
+      while line.length <= range do
+        new_x = line.last[0] + direction[0]
+        new_y = line.last[1] + direction[1]
+        line.push([new_x, new_y])
+      end
+      line
+    end
+  end
+
+
+
 
   private
 

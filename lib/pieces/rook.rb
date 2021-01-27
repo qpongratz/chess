@@ -7,22 +7,18 @@ require_relative '../conversions'
 class Rook < Piece
   include Conversions
 
-  attr_reader :range, :sight
+  attr_reader :range
   
   def post_initialize
     @range = 7
     update_sight
   end
 
-  def update_sight
-    x_axis = line_of_coordinate(x)
-    y_axis = line_of_coordinate(y)
-    right = ((x + 1)..(x + range)).to_a
-    left = ((x - range)..(x - 1)).to_a.reverse
-    up = ((y + 1)..(y + range)).to_a
-    down = ((y - range)..(y - 1)).to_a.reverse
-    @sight = [right.zip(y_axis), left.zip(y_axis), x_axis.zip(up), x_axis.zip(down)]
+  def transformations
+    [[1, 0], [-1, 0], [0, 1], [0, -1]]
   end
+
+
 
   def path_to_position(end_index)
     end_coordinate = index_to_coordinates(end_index)
@@ -42,13 +38,11 @@ class Rook < Piece
     p path.slice(1, index_of_end - 1)
   end
 
-
-
-  # paths: four of them: x..x+range, x-range..x, y..y+range, y-range..y
-  # x.zip(y) with horizontal and vertial lines
-  # should create four arrays of coordinates
-
 end
 
+# apply each transformation range times.
+# transformations should do all directions
+
 my_rook = Rook.new('white', 0)
+# p my_rook.sight
 p my_rook.sight
