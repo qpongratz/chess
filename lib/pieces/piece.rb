@@ -27,9 +27,6 @@ class Piece
     end
   end
 
-
-
-
   private
 
   def line_of_coordinate(coord)
@@ -44,4 +41,3 @@ class Piece
     position[1]
   end
 end
- 
