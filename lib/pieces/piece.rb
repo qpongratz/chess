@@ -11,8 +11,8 @@ class Piece
   def initialize(color, position)
     @color = color
     @position = index_to_coordinates(position)
-    post_initialize
     @range = 7
+    post_initialize
     update_sight
   end
 
