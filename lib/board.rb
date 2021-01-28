@@ -14,16 +14,13 @@ class Board
 
   def initialize(state = default_state)
     @state = state
-    puts state
-    puts state.length
   end
 
   def valid_move?(start, destination, player)
     piece_to_move = state[start]
-    return false if piece_to_move.nil?
-    return false unless piece_to_move.color == player.color
-    return false unless state[destination].nil? || piece_to_move.color != state[destination].color
-    return false unless piece_to_move.see?(destination)
+    return 'Starting position is not a piece of yours' unless colors_match?(start, player.color)
+    return 'Cannot move onto a piece of your own color' if colors_match?(destination, player.color)
+    return 'Selected piece cannot move to that destination' unless piece_to_move.see?(destination)
 
     path = piece_to_move.path_to(destination)
     path.each { |spot| return false unless state[spot].nil? }
@@ -35,6 +32,14 @@ class Board
     # find king of that color, and note it's position
     # ask any piece of other color if their position to king's position is valid_move?
     # If any opposing piece does have a valid move, store that path in a threat array?
+  end
+
+  def colors_match?(position, color)
+    if state[position].nil?
+      false
+    else
+      state[position].color == color
+    end
   end
 
   def no_moves?(color)
@@ -90,5 +95,7 @@ end
 
 my_board = Board.new
 my_player = Player.new('black')
-p my_board.valid_move?(0, 57, my_player)
+p my_board.valid_move?(0, 56, my_player)
+p my_board.valid_move?(0, 22, my_player)
+p my_board.valid_move?(0, 1, my_player)
 
