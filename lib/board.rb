@@ -34,14 +34,6 @@ class Board
     # If any opposing piece does have a valid move, store that path in a threat array?
   end
 
-  def colors_match?(position, color)
-    if state[position].nil?
-      false
-    else
-      state[position].color == color
-    end
-  end
-
   def no_moves?(color)
     # go through each spot in array.
     # If piece color matches color given, ask for their sight.
@@ -61,7 +53,7 @@ class Board
   private
 
   def pawn_row(color, start)
-    Array.new(8)
+    color || start
     # row = []
     # 8.times do
     #   row << Pawn.new(color, start)
@@ -81,7 +73,13 @@ class Board
      Rook.new(color, start + 7)]
   end
 
-
+  def colors_match?(position, color)
+    if state[position].nil?
+      false
+    else
+      state[position].color == color
+    end
+  end
 end
 
 class Player
