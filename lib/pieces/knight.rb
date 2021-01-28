@@ -14,5 +14,5 @@ class Knight < Piece
   end
 end
 
-my_knight = Knight.new('white', 0)
-p my_knight.sight
+# my_knight = Knight.new('white', 0)
+# p my_knight.sight

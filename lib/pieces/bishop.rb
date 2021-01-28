@@ -9,5 +9,5 @@ class Bishop < Piece
   end
 end
 
-my_bishop = Bishop.new('white', 0)
-p my_bishop.sight
+# my_bishop = Bishop.new('white', 0)
+# p my_bishop.sight

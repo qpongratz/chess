@@ -14,5 +14,5 @@ class King < Piece
   end
 end
 
-my_king = King.new('white', 0)
-p my_king.sight
+# my_king = King.new('white', 0)
+# p my_king.sight

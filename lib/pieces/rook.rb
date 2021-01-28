@@ -9,5 +9,5 @@ class Rook < Piece
   end
 end
 
-my_rook = Rook.new('white', 0)
-p my_rook.sight
+# my_rook = Rook.new('white', 0)
+# p my_rook.sight
