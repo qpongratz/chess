@@ -27,7 +27,6 @@ class Piece
 
   def path_to(position)
     single_path = sight.keep_if { |path| path.include?(position) }.flatten(1)
-    single_path.shift
     popped_position = single_path.pop until popped_position == position
     single_path
   end
@@ -47,6 +46,12 @@ class Piece
   end
 
   def update_sight
+    build_sight
+    translate_sight
+    prune_sight
+  end
+
+  def build_sight
     @sight = transformations.map do |transformation|
       line = [position]
       range.times do
@@ -54,7 +59,20 @@ class Piece
         new_y = line.last[1] + transformation[1]
         line.push([new_x, new_y])
       end
-      line.map { |coord| coordinates_to_index(coord) }
+      line
+    end
+  end
+
+  def translate_sight
+    @sight = sight.map do |coordinate_array|
+      coordinate_array.map { |coordinate| coordinates_to_index(coordinate) }
+    end
+  end
+
+  def prune_sight
+    @sight = sight.map do |index_array|
+      index_array.shift
+      index_array.keep_if { |index| index.between?(0, 63) }
     end
   end
 end
