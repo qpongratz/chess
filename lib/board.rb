@@ -66,16 +66,14 @@ class Board
   end
 
   def piece_row(color, start)
-    row = []
-    row << Rook.new(color, start)
-    row << Knight.new(color, start + 1)
-    row << Bishop.new(color, start + 2)
-    row << Queen.new(color, start + 3)
-    row << King.new(color, start + 4)
-    row << Bishop.new(color, start + 5)
-    row << Knight.new(color, start + 6)
-    row << Rook.new(color, start + 7)
-    row
+    [Rook.new(color, start),
+     Knight.new(color, start + 1),
+     Bishop.new(color, start + 2),
+     Queen.new(color, start + 3),
+     King.new(color, start + 4),
+     Bishop.new(color, start + 5),
+     Knight.new(color, start + 6),
+     Rook.new(color, start + 7)]
   end
 
 
