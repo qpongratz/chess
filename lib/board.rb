@@ -34,7 +34,7 @@ class Board
   end
 
   def no_moves?(color)
-    # go through each spot in array. 
+    # go through each spot in array.
     # If piece color matches color given, ask for their sight.
     # Ask piece if each move in their sight is a valid move.
     # If ever a valid_move? then return false
@@ -61,5 +61,5 @@ end
 
 my_board = Board.new
 my_player = Player.new('white')
-p my_board.valid_move?(0, 1, my_player)
+p my_board.valid_move?(0, 10, my_player)
 
