@@ -21,6 +21,14 @@ class Piece
     update_sight
   end
 
+  def see?(position)
+    sight.flatten(1).include?(position)
+  end
+
+  def path_to(position)
+    sight.keep_if { |path| path.include?(position) }.flatten(1)
+  end
+
   private
 
   def orthogonal
@@ -41,9 +49,10 @@ class Piece
       range.times do
         new_x = line.last[0] + transformation[0]
         new_y = line.last[1] + transformation[1]
+        index = coordinates_to_index([new_x, new_y])
         line.push([new_x, new_y])
       end
-      line
+      line.map { |coord| coordinates_to_index(coord) }
     end
   end
 end
