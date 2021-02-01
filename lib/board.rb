@@ -90,13 +90,13 @@ class Board
   end
 end
 
-class Player
-  attr_reader :color
+# class Player
+#   attr_reader :color
 
-  def initialize(color)
-    @color = color
-  end
-end
+#   def initialize(color)
+#     @color = color
+#   end
+# end
 
 
 # my_board = Board.new
