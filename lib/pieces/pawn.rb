@@ -19,11 +19,6 @@ class Pawn < Piece
     update_sight
   end
 
-  def see?(args)
-    super
-    # current_sight.include?(args[:position])
-  end
-
   private
 
   def en_passant(position)
@@ -50,10 +45,10 @@ class Pawn < Piece
   end
 end
 
-my_pawn = Pawn.new('white', 63)
-p my_pawn.sight
-p my_pawn.en_passant_position
-p my_pawn.position = (47)
-p my_pawn.en_passant_position
-p my_pawn.position = (38)
-p my_pawn.en_passant_position
+# my_pawn = Pawn.new('white', 63)
+# p my_pawn.sight
+# p my_pawn.en_passant_position
+# p my_pawn.position = (47)
+# p my_pawn.en_passant_position
+# p my_pawn.position = (38)
+# p my_pawn.en_passant_position

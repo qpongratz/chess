@@ -62,7 +62,6 @@ class Board
   private
 
   def pawn_row(color, start)
-    color || start
     row = []
     8.times do
       row << Pawn.new(color, start)
