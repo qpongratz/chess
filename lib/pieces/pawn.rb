@@ -13,6 +13,7 @@ class Pawn < Piece
   end
 
   def position=(position)
+    en_passant(position)
     @position = index_to_coordinates(position)
     @moved = true
     update_sight
@@ -22,6 +23,14 @@ class Pawn < Piece
   end
 
   private
+
+  def en_passant(position)
+    @en_passant_position = (see?(space_behind(position)) ? space_behind(position) : nil)
+  end
+
+  def space_behind(position)
+    position - (8 * forward)
+  end
 
   def update_sight
     super
@@ -39,6 +48,10 @@ class Pawn < Piece
   end
 end
 
-my_pawn = Pawn.new('white', 50)
+my_pawn = Pawn.new('white', 63)
 p my_pawn.sight
-p my_pawn.position = (41)
+p my_pawn.en_passant_position
+p my_pawn.position = (47)
+p my_pawn.en_passant_position
+p my_pawn.position = (38)
+p my_pawn.en_passant_position

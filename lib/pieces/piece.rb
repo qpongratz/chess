@@ -6,7 +6,7 @@ require_relative '../conversions'
 class Piece
   include Conversions
 
-  attr_reader :color, :position, :sight, :range
+  attr_reader :color, :position, :sight, :range, :en_passant_position
 
   def initialize(color, position)
     @color = color
@@ -49,7 +49,6 @@ class Piece
     build_sight
     prune_sight
     translate_sight
-    p sight
   end
 
   def build_sight
