@@ -10,7 +10,7 @@ require 'pry'
 
 # Manages board state
 class Board
-  attr_reader :state
+  attr_reader :state, :en_passant_position
 
   def initialize(state = default_state)
     @state = state
@@ -26,6 +26,14 @@ class Board
     path.each { |spot| return false unless state[spot].nil? }
     # If it makes this move, will king of same color player be in check?
     true
+  end
+
+  def move(start, destination)
+    piece_to_move = state[start]
+    state[start] = nil
+    state[destination] = piece_to_move
+    piece_to_move.position = (destination)
+    @en_passant_position = piece_to_move.en_passant_position
   end
 
   def check?(color)
@@ -46,7 +54,7 @@ class Board
     piece_row('black', 0) +
       pawn_row('black', 8) +
       Array.new(32) +
-      pawn_row('black', 48) +
+      pawn_row('white', 48) +
       piece_row('white', 56)
   end
 
@@ -54,7 +62,7 @@ class Board
 
   def pawn_row(color, start)
     color || start
-    # row = []
+    row = Array.new(8)
     # 8.times do
     #   row << Pawn.new(color, start)
     #   start += 1
@@ -93,7 +101,11 @@ end
 
 my_board = Board.new
 my_player = Player.new('black')
+p my_board.state
 p my_board.valid_move?(0, 56, my_player)
-p my_board.valid_move?(0, 22, my_player)
-p my_board.valid_move?(0, 1, my_player)
+p my_board.move(0, 56)
+p my_board.state
+p my_board.en_passant_position
+# p my_board.valid_move?(0, 22, my_player)
+# p my_board.valid_move?(0, 1, my_player)
 
