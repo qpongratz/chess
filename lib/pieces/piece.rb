@@ -47,8 +47,9 @@ class Piece
 
   def update_sight
     build_sight
-    translate_sight
     prune_sight
+    translate_sight
+    p sight
   end
 
   def build_sight
@@ -70,9 +71,9 @@ class Piece
   end
 
   def prune_sight
-    @sight = sight.map do |index_array|
-      index_array.shift
-      index_array.keep_if { |index| index.between?(0, 63) }
+    @sight = sight.map do |coordinate_array|
+      coordinate_array.shift
+      coordinate_array.keep_if { |coordinate| coordinate[0].between?(0, 7) && coordinate[1].between?(0, 7) }
     end
   end
 end
