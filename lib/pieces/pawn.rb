@@ -19,13 +19,15 @@ class Pawn < Piece
     update_sight
   end
 
-  def see?(position)
+  def see?(args)
+    super
+    # current_sight.include?(args[:position])
   end
 
   private
 
   def en_passant(position)
-    @en_passant_position = (see?(space_behind(position)) ? space_behind(position) : nil)
+    @en_passant_position = (see?({ destination: space_behind(position) }) ? space_behind(position) : nil)
   end
 
   def space_behind(position)

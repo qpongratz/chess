@@ -21,8 +21,8 @@ class Piece
     update_sight
   end
 
-  def see?(position)
-    sight.flatten(1).include?(position)
+  def see?(args)
+    sight.flatten(1).include?(args[:destination])
   end
 
   def path_to(position)

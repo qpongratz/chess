@@ -20,7 +20,7 @@ class Board
     piece_to_move = state[start]
     return 'Starting position is not a piece of yours' unless colors_match?(start, player.color)
     return 'Cannot move onto a piece of your own color' if colors_match?(destination, player.color)
-    return 'Selected piece cannot move to that destination' unless piece_to_move.see?(destination)
+    return 'Cannot move to that destination' unless piece_to_move.see?({ destination: destination, board: self })
 
     path = piece_to_move.path_to(destination)
     path.each { |spot| return false unless state[spot].nil? }
