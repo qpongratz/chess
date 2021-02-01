@@ -18,6 +18,20 @@ class Pawn < Piece
     update_sight
   end
 
+  def see?(position)
+  end
+
+  private
+
+  def update_sight
+    super
+    correct_sight
+  end
+
+  def correct_sight
+    sight[3] && sight[3] = sight[0] + sight[3]
+  end
+
   def transformations
     moves = [[0, forward], [-1, forward], [1, forward]]
     moves.push([0, forward * 2]) unless moved
@@ -28,4 +42,3 @@ end
 my_pawn = Pawn.new('white', 50)
 p my_pawn.sight
 p my_pawn.position = (41)
-p my_pawn.sight
