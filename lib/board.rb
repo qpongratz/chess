@@ -6,6 +6,7 @@ require_relative 'pieces/king'
 require_relative 'pieces/rook'
 require_relative 'pieces/bishop'
 require_relative 'pieces/knight'
+require_relative 'pieces/pawn'
 require 'pry'
 
 # Manages board state
@@ -62,12 +63,12 @@ class Board
 
   def pawn_row(color, start)
     color || start
-    row = Array.new(8)
-    # 8.times do
-    #   row << Pawn.new(color, start)
-    #   start += 1
-    # end
-    # row
+    row = []
+    8.times do
+      row << Pawn.new(color, start)
+      start += 1
+    end
+    row
   end
 
   def piece_row(color, start)
@@ -99,13 +100,16 @@ class Player
 end
 
 
-my_board = Board.new
-my_player = Player.new('black')
-p my_board.state
-p my_board.valid_move?(0, 56, my_player)
-p my_board.move(0, 56)
-p my_board.state
-p my_board.en_passant_position
-# p my_board.valid_move?(0, 22, my_player)
-# p my_board.valid_move?(0, 1, my_player)
+# my_board = Board.new
+# my_player = Player.new('black')
+# puts my_board.state
+# my_board.move(48, 32)
+# puts my_board.state
+# p my_board.en_passant_position
+# # p my_board.valid_move?(0, 56, my_player)
+# # p my_board.move(0, 56)
+# # p my_board.state
+# # p my_board.en_passant_position
+# # p my_board.valid_move?(0, 22, my_player)
+# # p my_board.valid_move?(0, 1, my_player)
 
