@@ -89,26 +89,3 @@ class Board
     end
   end
 end
-
-# class Player
-#   attr_reader :color
-
-#   def initialize(color)
-#     @color = color
-#   end
-# end
-
-
-# my_board = Board.new
-# my_player = Player.new('black')
-# puts my_board.state
-# my_board.move(48, 32)
-# puts my_board.state
-# p my_board.en_passant_position
-# # p my_board.valid_move?(0, 56, my_player)
-# # p my_board.move(0, 56)
-# # p my_board.state
-# # p my_board.en_passant_position
-# # p my_board.valid_move?(0, 22, my_player)
-# # p my_board.valid_move?(0, 1, my_player)
-
