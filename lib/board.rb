@@ -11,10 +11,11 @@ require 'pry'
 
 # Manages board state
 class Board
-  attr_reader :state, :en_passant_position
+  attr_reader :state, :en_passant_position, :white_king, :black_king
 
   def initialize(state = default_state)
     @state = state
+    setup_kings
   end
 
   def valid_move?(start, destination, player)
@@ -52,6 +53,13 @@ class Board
   end
 
   private
+
+  def setup_kings
+    @black_king = state[4]
+    @white_king = state[60]
+    black_king.setup(state[0], state[7], self)
+    white_king.setup(state[56], state[63], self)
+  end
 
   def default_state
     piece_row('black', 0) +
