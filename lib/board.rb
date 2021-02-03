@@ -51,6 +51,8 @@ class Board
     # if it gets to the end of the array, return true
   end
 
+  private
+
   def default_state
     piece_row('black', 0) +
       pawn_row('black', 8) +
@@ -58,8 +60,6 @@ class Board
       pawn_row('white', 48) +
       piece_row('white', 56)
   end
-
-  private
 
   def pawn_row(color, start)
     row = []
