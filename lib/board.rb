@@ -52,6 +52,14 @@ class Board
     # if it gets to the end of the array, return true
   end
 
+  def colors_match?(position, color)
+    if state[position].nil?
+      false
+    else
+      state[position].color == color
+    end
+  end
+
   private
 
   def setup_kings
@@ -87,13 +95,5 @@ class Board
      Bishop.new(color, start + 5),
      Knight.new(color, start + 6),
      Rook.new(color, start + 7)]
-  end
-
-  def colors_match?(position, color)
-    if state[position].nil?
-      false
-    else
-      state[position].color == color
-    end
   end
 end
