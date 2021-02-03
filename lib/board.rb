@@ -19,8 +19,8 @@ class Board
 
   def valid_move?(start, destination, player)
     piece_to_move = state[start]
-    return 'Starting position is not a piece of yours' unless colors_match?(start, player.color)
-    return 'Cannot move onto a piece of your own color' if colors_match?(destination, player.color)
+    return false unless colors_match?(start, player.color)
+    return false if colors_match?(destination, player.color)
     return 'Cannot move to that destination' unless piece_to_move.see?({ destination: destination, board: self })
 
     path = piece_to_move.path_to(destination)

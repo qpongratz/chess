@@ -22,8 +22,18 @@ describe Board do
       end
     end
     context 'Start position piece is not same color as player' do
+      it 'Returns false' do
+        allow(board).to receive(:state).and_return([black_piece, white_piece])
+        result = board.valid_move?(0, 1, white_player)
+        expect(result).to be false
+      end
     end
     context 'Destination is same color as player' do
+      it 'Returns false' do
+        allow(board).to receive(:state).and_return([white_piece, white_piece])
+        result = board.valid_move?(0, 1, white_player)
+        expect(result).to be false
+      end
     end
     context 'Destination is unreachable by piece' do
     end
