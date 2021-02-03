@@ -87,8 +87,18 @@ describe Board do
         result = board.state
         expect(result).to eq([nil, nil, white_piece])
       end
+      it 'Piece is sent new position' do
+        expect(white_piece).to receive(:position=)
+        board.move(0, 2)
+      end
     end
+    subject(:board) { described_class.new([white_piece, nil, black_piece]) }
     context 'Destination is occupied' do
+      it 'Board state reflects move' do
+        board.move(0, 2)
+        result = board.state
+        expect(result).to eq([nil, nil, white_piece])
+      end
     end
   end
 end
