@@ -4,11 +4,12 @@ require_relative 'piece'
 
 # Controls rook specific bits.
 class Pawn < Piece
-  attr_reader :forward, :moved
+  attr_reader :forward, :moved, :enemy_color
 
   def post_initialize
     @range = 1
     @forward = (color == 'white' ? -1 : 1)
+    @enemy_color = (color == 'white' ? 'black' : 'white')
     @moved = false
   end
 
@@ -19,10 +20,21 @@ class Pawn < Piece
     update_sight
   end
 
+  def see?(args, actual_sight = [])
+    return false unless sight.flatten(1).include?(args[:destination])
+
+    board = args[:board]
+    actual_sight.push(sight[0]) if board.state[sight[0][0]].nil?
+    actual_sight.push(sight[1]) if board.colors_match?(sight[1][0], enemy_color) || board.en_passant_position == sight[1][0]
+    actual_sight.push(sight[2]) if board.colors_match?(sight[2][0], enemy_color) || board.en_passant_position == sight[2][0]
+    actual_sight.push(sight[3]) if !sight[3].nil? && board.state[sight[3][1]].nil?
+    actual_sight.flatten(1).include?(args[:destination])
+  end
+
   private
 
   def en_passant(position)
-    @en_passant_position = (see?({ destination: space_behind(position) }) ? space_behind(position) : nil)
+    @en_passant_position = (sight.include?(space_behind(position)) ? space_behind(position) : nil)
   end
 
   def space_behind(position)
