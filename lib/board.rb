@@ -21,11 +21,11 @@ class Board
     piece_to_move = state[start]
     return false unless colors_match?(start, player.color)
     return false if colors_match?(destination, player.color)
-    return 'Cannot move to that destination' unless piece_to_move.see?({ destination: destination, board: self })
+    return false unless piece_to_move.see?({ destination: destination, board: self })
 
     path = piece_to_move.path_to(destination)
     path.each { |spot| return false unless state[spot].nil? }
-    # If it makes this move, will king of same color player be in check?
+    # return false if check on color of simulated move
     true
   end
 

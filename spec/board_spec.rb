@@ -8,6 +8,7 @@ describe Board do
   let(:white_player) { instance_double(Player) }
   let(:white_piece) { instance_double(Piece) }
   let(:black_piece) { instance_double(Piece) }
+
   describe '#valid_move?' do
     before do
       allow(white_player).to receive(:color).and_return('white')
@@ -36,12 +37,48 @@ describe Board do
       end
     end
     context 'Destination is unreachable by piece' do
+      it 'Returns false' do
+        allow(board).to receive(:state).and_return([white_piece, nil])
+        allow(white_piece).to receive(:see?).and_return(false)
+        result = board.valid_move?(0, 1, white_player)
+        expect(result).to be false
+      end
     end
     context 'Path to Destination is blocked by another piece' do
+      it 'Returns false' do
+        allow(board).to receive(:state).and_return([white_piece, white_piece, nil])
+        allow(white_piece).to receive(:see?).and_return(true)
+        allow(white_piece).to receive(:path_to).and_return([1])
+        result = board.valid_move?(0, 2, white_player)
+        expect(result).to be false
+      end
     end
     context 'Move will put player making move in check' do
+      xit 'Returns false' do
+        allow(board).to receive(:state).and_return([white_piece, nil, nil])
+        allow(white_piece).to receive(:see?).and_return(true)
+        allow(white_piece).to receive(:path_to).and_return([1])
+        # setup stub for check to return false
+        result = board.valid_move?(0, 2, white_player)
+        expect(result).to be false
+      end
     end
     context 'All checks pass' do
+      it 'Returns true' do
+        allow(board).to receive(:state).and_return([white_piece, nil, nil])
+        allow(white_piece).to receive(:see?).and_return(true)
+        allow(white_piece).to receive(:path_to).and_return([1])
+        # setup stub for check check whenever that is figured out
+        result = board.valid_move?(0, 2, white_player)
+        expect(result).to be true
+      end
+    end
+  end
+
+  describe '#move' do
+    context 'Destination is unoccupied' do
+    end
+    context 'Destination is occupied' do
     end
   end
 end
