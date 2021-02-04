@@ -2,14 +2,17 @@
 
 require_relative 'board'
 require_relative 'player'
+require_relative 'display'
 
 # Controls the flow of the game.
 class Game
+  include Display
   attr_reader :players, :board
 
   def initialize
     @board = Board.new
     @players = [Player.new('white'), Player.new('black')]
+    display_board(board.state)
   end
 
   def turn
