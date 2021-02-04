@@ -17,8 +17,8 @@ class Game
       turn_text
       current_player.input_move(board)
       players.rotate!
-    end 
-    board.check?(current_player.color) ? checkmate : stalemate
+    end
+    board.check?(current_color) ? checkmate : stalemate
   end
 
   private

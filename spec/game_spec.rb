@@ -4,6 +4,8 @@ require 'board'
 require 'player'
 require 'game'
 
+# rubocop:disable Metrics/BlockLength
+
 describe Game do
   subject(:game) { described_class.new }
   let(:board) { instance_double(Board) }
@@ -40,4 +42,23 @@ describe Game do
       game.turn
     end
   end
+  context 'There are no moves to be made' do
+    before do
+      allow(board).to receive(:no_moves?).and_return(true)
+      allow(white_player).to receive(:color)
+      allow(black_player).to receive(:color)
+    end
+    it 'Calls checkmate if current player is in check' do
+      allow(board).to receive(:check?).and_return(true)
+      expect(game).to receive(:checkmate)
+      game.turn
+    end
+    it 'Calls stalemate if current_player is not in check' do
+      allow(board).to receive(:check?).and_return(false)
+      expect(game).to receive(:stalemate)
+      game.turn
+    end
+  end
 end
+
+# rubocop:enable Metrics/BlockLength
