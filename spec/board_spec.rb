@@ -128,6 +128,29 @@ describe Board do
     end
   end
 
+  describe '#no_moves?' do
+    let(:black_pawn) { instance_double(Pawn) }
+    before do
+      fake_state = [black_pawn]
+      allow(board).to receive(:state).and_return(fake_state)
+      allow(black_pawn).to receive(:sight).and_return([0, 1])
+      allow(black_pawn).to receive(:color).and_return('black')
+    end
+    context 'Player has an available move' do
+      it 'Returns false' do
+        allow(board).to receive(:valid_move?).and_return(true)
+        result = board.no_moves?('black')
+        expect(result).to be false
+      end
+    end
+    context 'Player has an available move' do
+      it 'Returns true' do
+        allow(board).to receive(:valid_move?).and_return(false)
+        result = board.no_moves?('black')
+        expect(result).to be true
+      end
+    end
+  end
 end
 
 # rubocop:enable Metrics/BlockLength
