@@ -31,6 +31,14 @@ class Pawn < Piece
     actual_sight.flatten(1).include?(args[:destination])
   end
 
+  def to_s
+    if color == 'white'
+      '♙'
+    else
+      '♟︎'
+    end
+  end
+
   private
 
   def en_passant(position)

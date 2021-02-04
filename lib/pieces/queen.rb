@@ -7,4 +7,12 @@ class Queen < Piece
   def transformations
     orthogonal + diagonal
   end
+
+  def to_s
+    if color == 'white'
+      '♕'
+    else
+      '♛'
+    end
+  end
 end
