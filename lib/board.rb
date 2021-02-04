@@ -7,6 +7,7 @@ require_relative 'pieces/rook'
 require_relative 'pieces/bishop'
 require_relative 'pieces/knight'
 require_relative 'pieces/pawn'
+require 'pry'
 
 # Manages board state
 class Board
@@ -51,7 +52,7 @@ class Board
     state.each_with_index do |piece, index|
       next unless colors_match?(index, color)
 
-      possible_moves = piece.sight
+      possible_moves = piece.sight.flatten
       possible_moves.each do |move|
         valid_move?(index, move, color) && (return false)
       end
