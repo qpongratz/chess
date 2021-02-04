@@ -13,6 +13,7 @@ describe Game do
   let(:black_player) { instance_double(Player) }
   before do
     allow(game).to receive(:puts)
+    allow(board).to receive(:state).and_return([nil])
     game.instance_variable_set(:@players, [white_player, black_player])
     game.instance_variable_set(:@board, board)
   end
