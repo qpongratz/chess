@@ -15,13 +15,11 @@ class Game
   end
 
   def turn
-    display_board(board.state)
     until board.no_moves?(current_color) == true
       turn_text
       current_player.input_move(board)
       players.rotate!
     end
-    display_board(board.state)    
     board.check?(current_color) ? checkmate : stalemate
   end
 
