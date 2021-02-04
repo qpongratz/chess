@@ -6,6 +6,7 @@ require_relative 'player'
 # Controls the flow of the game.
 class Game
   attr_reader :players, :board
+
   def initialize
     @board = Board.new
     @players = [Player.new('white'), Player.new('black')]
@@ -42,5 +43,4 @@ class Game
   def stalemate
     puts 'Stalemate; no one wins'
   end
-
 end
