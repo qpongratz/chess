@@ -17,10 +17,10 @@ class Board
     setup_kings
   end
 
-  def valid_move?(start, destination, player)
+  def valid_move?(start, destination, color)
     piece_to_move = state[start]
-    return false unless colors_match?(start, player.color)
-    return false if colors_match?(destination, player.color)
+    return false unless colors_match?(start, color)
+    return false if colors_match?(destination, color)
     return false unless piece_to_move.see?({ destination: destination, board: self })
 
     path = piece_to_move.path_to(destination)

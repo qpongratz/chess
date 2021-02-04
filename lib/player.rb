@@ -8,6 +8,6 @@ class Player
     @color = color
   end
 
-  def input_move(move)
+  def input_move(board)
   end
 end

@@ -20,21 +20,21 @@ describe Board do
     context 'Start position is empty' do
       it 'Returns false' do
         allow(board).to receive(:state).and_return([nil])
-        result = board.valid_move?(0, 1, white_player)
+        result = board.valid_move?(0, 1, 'white')
         expect(result).to be false
       end
     end
     context 'Start position piece is not same color as player' do
       it 'Returns false' do
         allow(board).to receive(:state).and_return([black_piece, white_piece])
-        result = board.valid_move?(0, 1, white_player)
+        result = board.valid_move?(0, 1, 'white')
         expect(result).to be false
       end
     end
     context 'Destination is same color as player' do
       it 'Returns false' do
         allow(board).to receive(:state).and_return([white_piece, white_piece])
-        result = board.valid_move?(0, 1, white_player)
+        result = board.valid_move?(0, 1, 'white')
         expect(result).to be false
       end
     end
@@ -42,7 +42,7 @@ describe Board do
       it 'Returns false' do
         allow(board).to receive(:state).and_return([white_piece, nil])
         allow(white_piece).to receive(:see?).and_return(false)
-        result = board.valid_move?(0, 1, white_player)
+        result = board.valid_move?(0, 1, 'white')
         expect(result).to be false
       end
     end
@@ -51,7 +51,7 @@ describe Board do
         allow(board).to receive(:state).and_return([white_piece, white_piece, nil])
         allow(white_piece).to receive(:see?).and_return(true)
         allow(white_piece).to receive(:path_to).and_return([1])
-        result = board.valid_move?(0, 2, white_player)
+        result = board.valid_move?(0, 2, 'white')
         expect(result).to be false
       end
     end
@@ -61,7 +61,7 @@ describe Board do
         allow(white_piece).to receive(:see?).and_return(true)
         allow(white_piece).to receive(:path_to).and_return([1])
         # setup stub for check to return false
-        result = board.valid_move?(0, 2, white_player)
+        result = board.valid_move?(0, 2, 'white')
         expect(result).to be false
       end
     end
@@ -71,7 +71,7 @@ describe Board do
         allow(white_piece).to receive(:see?).and_return(true)
         allow(white_piece).to receive(:path_to).and_return([1])
         # setup stub for check check whenever that is figured out
-        result = board.valid_move?(0, 2, white_player)
+        result = board.valid_move?(0, 2, 'white')
         expect(result).to be true
       end
     end
