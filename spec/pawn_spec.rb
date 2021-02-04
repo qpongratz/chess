@@ -69,37 +69,80 @@ describe Pawn do
       allow(board).to receive(:colors_match?).and_return(false)
       allow(board).to receive(:en_passant_position).and_return(nil)
     end
-    context 'No pieces in front of pawn' do
-      before do
-        allow(board).to receive(:state).and_return([nil])
+    context 'Forward pawn movement' do
+      context 'No pieces in front of pawn' do
+        before do
+          allow(board).to receive(:state).and_return([nil])
+        end
+        it 'Returns true for single move' do
+          args = { board: board, destination: 9 }
+          result = black_pawn.see?(args)
+          expect(result).to be true
+        end
+        it 'Returns true for a double move forward' do
+          args = { board: board, destination: 17 }
+          result = black_pawn.see?(args)
+          expect(result).to be true
+        end
       end
-      it 'Returns true for single move' do
-        args = { board: board, destination: 9 }
-        result = black_pawn.see?(args)
-        expect(result).to be true
-      end
-      it 'Returns true for a double move forward' do
-        args = { board: board, destination: 17 }
-        result = black_pawn.see?(args)
-        expect(result).to be true
+      context 'Piece blocks position pawn wants to move to' do
+        before do
+          fake_state = Array.new(64)
+          fake_state[9] = white_pawn
+          fake_state[17] = white_pawn
+          allow(board).to receive(:state).and_return(fake_state)
+        end
+        it 'Returns false for single move' do
+          args = { board: board, destination: 9 }
+          result = black_pawn.see?(args)
+          expect(result).to be false
+        end
+        it 'Returns false for a double move forward' do
+          args = { board: board, destination: 17 }
+          result = black_pawn.see?(args)
+          expect(result).to be false
+        end
       end
     end
-    context 'Piece blocks position pawn wants to move to' do
-      before do
-        fake_state = Array.new(64)
-        fake_state[9] = white_pawn
-        fake_state[17] = white_pawn
-        allow(board).to receive(:state).and_return(fake_state)
+    context 'Diagonal pawn movement' do
+      context 'No pieces or en_passant in diagonals' do
+        before do
+          allow(board).to receive(:colors_match?).and_return(false)
+          allow(board).to receive(:en_passant_position).and_return(nil)
+          allow(board).to receive(:state).and_return([nil])
+        end
+        it 'Returns false for empty diagonal left square' do
+          args = { board: board, destination: 8 }
+          result = black_pawn.see?(args)
+          expect(result).to be false
+        end
+        it 'Returns false for empty diagonal right square' do
+          args = { board: board, destination: 10 }
+          result = black_pawn.see?(args)
+          expect(result).to be false
+        end  
       end
-      it 'Returns false for single move' do
-        args = { board: board, destination: 9 }
-        result = black_pawn.see?(args)
-        expect(result).to be false
+      context 'Enemy pieces in diagonals' do
+        before do
+          fake_state = Array.new(64)
+          fake_state[8] = white_pawn
+          fake_state[10] = white_pawn
+          allow(board).to receive(:state).and_return(fake_state)
+          allow(board).to receive(:colors_match?).and_return(true)
+          allow(board).to receive(:en_passant_position).and_return(nil)
+        end
+        it 'Returns true for left diagonal' do
+          args = { board: board, destination: 8 }
+          result = black_pawn.see?(args)
+          expect(result).to be true
+        end
+        it 'Returns true for right diagonal' do
+          args = { board: board, destination: 10 }
+          result = black_pawn.see?(args)
+          expect(result).to be true
+        end
       end
-      it 'Returns false for a double move forward' do
-        args = { board: board, destination: 17 }
-        result = black_pawn.see?(args)
-        expect(result).to be false
+      context 'En_passant for diagonal spaces' do
       end
     end
   end
