@@ -16,8 +16,8 @@ class Game
     until board.no_moves?(current_color) == true
       turn_text
       current_player.input_move(board)
-      players.rotate
-    end
+      players.rotate!
+    end 
     board.check?(current_player.color) ? checkmate : stalemate
   end
 
