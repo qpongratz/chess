@@ -78,8 +78,8 @@ describe Board do
   end
 
   describe '#move' do
-    subject(:board) { described_class.new([white_piece, nil, nil]) }
     before do
+      allow(board).to receive(:state).and_return([white_piece, nil, nil])
       allow(white_piece).to receive(:position=)
       allow(white_piece).to receive(:en_passant_position)
     end
@@ -94,9 +94,9 @@ describe Board do
         board.move(0, 2)
       end
     end
-    subject(:board) { described_class.new([white_piece, nil, black_piece]) }
     context 'Destination is occupied' do
       it 'Board state reflects move' do
+        allow(board).to receive(:state).and_return([white_piece, nil, black_piece])
         board.move(0, 2)
         result = board.state
         expect(result).to eq([nil, nil, white_piece])
