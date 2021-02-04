@@ -101,6 +101,33 @@ describe Board do
       end
     end
   end
+
+  describe '#check?' do
+    let(:white_king) { instance_double(King) }
+    let(:black_king) { instance_double(King) }
+    let(:black_pawn) { instance_double(Pawn) }
+    before do
+      fake_state = [black_pawn, white_king]
+      allow(board).to receive(:white_king).and_return(white_king)
+      allow(board).to receive(:black_king).and_return(black_king)
+      allow(board).to receive(:state).and_return(fake_state)
+    end
+    context 'Player is not in check' do
+      it 'Returns false' do
+        allow(board).to receive(:valid_move?).and_return(false)
+        result = board.check?('white')
+        expect(result).to be false
+      end
+    end
+    context 'Player is in check' do
+      it 'Returns true' do
+        allow(board).to receive(:valid_move?).and_return(true)
+        result = board.check?('white')
+        expect(result).to be true
+      end
+    end
+  end
+
 end
 
 # rubocop:enable Metrics/BlockLength
