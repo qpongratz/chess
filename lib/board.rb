@@ -48,11 +48,15 @@ class Board
   end
 
   def no_moves?(color)
-    # go through each spot in array.
-    # If piece color matches color given, ask for their sight.
-    # Ask piece if each move in their sight is a valid move.
-    # If ever a valid_move? then return false
-    # if it gets to the end of the array, return true
+    state.each_with_index do |piece, index|
+      next unless colors_match?(index, color)
+
+      possible_moves = piece.sight
+      possible_moves.each do |move|
+        valid_move?(index, move, color) && (return false)
+      end
+    end
+    true
   end
 
   def colors_match?(position, color)
