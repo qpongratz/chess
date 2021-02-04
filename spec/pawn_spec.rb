@@ -143,6 +143,21 @@ describe Pawn do
         end
       end
       context 'En_passant for diagonal spaces' do
+        before do
+          allow(board).to receive(:colors_match?).and_return(false)
+          allow(board).to receive(:en_passant_position).and_return(8, 10)
+          allow(board).to receive(:state).and_return([nil])
+        end
+        it 'Returns true for left diagonal' do
+          args = { board: board, destination: 8 }
+          result = black_pawn.see?(args)
+          expect(result).to be true
+        end
+        it 'Returns true for right diagonal' do
+          args = { board: board, destination: 10 }
+          result = black_pawn.see?(args)
+          expect(result).to be true
+        end
       end
     end
   end
