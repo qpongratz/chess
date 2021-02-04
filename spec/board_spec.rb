@@ -7,13 +7,11 @@ require 'player'
 
 describe Board do
   subject(:board) { described_class.new }
-  let(:white_player) { instance_double(Player) }
   let(:white_piece) { instance_double(Piece) }
   let(:black_piece) { instance_double(Piece) }
 
   describe '#valid_move?' do
     before do
-      allow(white_player).to receive(:color).and_return('white')
       allow(white_piece).to receive(:color).and_return('white')
       allow(black_piece).to receive(:color).and_return('black')
     end
