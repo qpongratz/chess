@@ -38,9 +38,13 @@ class Board
   end
 
   def check?(color)
-    # find king of that color, and note it's position
-    # ask any piece of other color if their position to king's position is valid_move?
-    # If any opposing piece does have a valid move, store that path in a threat array?
+    king = (color == 'white' ? white_king : black_king)
+    enemy_color = (color == 'white' ? 'black' : 'white')
+    kings_position = state.index(king)
+    state.each_index do |index|
+      valid_move?(index, kings_position, enemy_color) && (return true)
+    end
+    false
   end
 
   def no_moves?(color)
