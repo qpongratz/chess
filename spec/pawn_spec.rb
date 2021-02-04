@@ -4,6 +4,8 @@ require_relative '../lib/pieces/pawn'
 require 'pieces/piece'
 require 'board'
 
+# rubocop:disable Metrics/BlockLength
+
 describe Pawn do
   subject(:white_pawn) { described_class.new('white', 54) }
   subject(:black_pawn) { described_class.new('black', 1) }
@@ -162,3 +164,5 @@ describe Pawn do
     end
   end
 end
+
+# rubocop:enable Metrics/BlockLength

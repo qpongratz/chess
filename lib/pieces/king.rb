@@ -20,6 +20,3 @@ class King < Piece
     orthogonal + diagonal
   end
 end
-
-# my_king = King.new('white', 0)
-# p my_king.sight

@@ -13,6 +13,3 @@ class Knight < Piece
     [[1, 2], [-2, -1], [-1, 2], [2, -1], [1, -2], [-2, 1], [-1, -2], [2, 1]]
   end
 end
-
-# my_knight = Knight.new('white', 0)
-# p my_knight.sight
