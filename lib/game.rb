@@ -32,12 +32,12 @@ class Game
   end
 
   def turn_text
-    put "#{current_color}'s turn"
-    put 'You are in check' if board.check?(current_color)
+    puts "#{current_color}'s turn"
+    puts 'You are in check' if board.check?(current_color)
   end
 
   def checkmate
-    'Checkmate. You lost and you won.'
+    puts 'Checkmate. You lost and you won.'
   end
 
   def stalemate
