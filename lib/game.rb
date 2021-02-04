@@ -12,15 +12,16 @@ class Game
   def initialize
     @board = Board.new
     @players = [Player.new('white'), Player.new('black')]
-    display_board(board.state)
   end
 
   def turn
+    display_board(board.state)
     until board.no_moves?(current_color) == true
       turn_text
       current_player.input_move(board)
       players.rotate!
     end
+    display_board(board.state)    
     board.check?(current_color) ? checkmate : stalemate
   end
 
@@ -36,6 +37,7 @@ class Game
 
   def turn_text
     puts "#{current_color}'s turn"
+    display_board(board.state)
     puts 'You are in check' if board.check?(current_color)
   end
 
