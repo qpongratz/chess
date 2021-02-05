@@ -13,9 +13,10 @@ require 'pry'
 class Board
   attr_reader :state, :en_passant_position, :white_king, :black_king
 
-  def initialize(state = default_state)
+  def initialize(state = nil)
     @state = state
-    setup_kings
+    default_state if state.nil?
+    find_kings if black_king.nil? || white_king.nil?
   end
 
   def valid_move?(start, destination, color)
@@ -25,7 +26,8 @@ class Board
     return false unless piece_to_move.see?({ destination: destination, board: self })
     return false unless path_clear?(piece_to_move, destination)
 
-    test_board = Board.new(state)
+    test_state = state.map(&:clone)
+    test_board = Board.new(test_state)
     test_board.move(start, destination)
     return false if test_board.check?(color)
 
@@ -77,6 +79,15 @@ class Board
 
   private
 
+  def find_kings
+    state.each do |spot|
+      if spot.instance_of?(King)
+        @white_king = spot if spot.color == 'white'
+        @black_king = spot if spot.color == 'black'
+      end
+    end
+  end
+
   def path_clear?(piece, destination)
     path = piece.path_to(destination)
     path.each { |spot| return false unless state[spot].nil? }
@@ -91,11 +102,16 @@ class Board
   end
 
   def default_state
-    piece_row('black', 0) +
-      pawn_row('black', 8) +
-      Array.new(32) +
-      pawn_row('white', 48) +
-      piece_row('white', 56)
+    setup_board
+    setup_kings
+  end
+
+  def setup_board
+    @state = piece_row('black', 0) +
+             pawn_row('black', 8) +
+             Array.new(32) +
+             pawn_row('white', 48) +
+             piece_row('white', 56)
   end
 
   def pawn_row(color, start)
