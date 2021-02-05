@@ -22,11 +22,13 @@ class Board
     return false unless colors_match?(start, color)
     return false if colors_match?(destination, color)
     return false unless piece_to_move.see?({ destination: destination, board: self })
+    return false unless path_clear?(piece_to_move, destination)
 
-    path = piece_to_move.path_to(destination)
-    path.each { |spot| return false unless state[spot].nil? }
     # return false if check on color of simulated move
     # simulate move Board.new(state)
+    # in test_board do .move(start, destination)
+    # then check? for color
+    # if true, return false, if false we good to go baby
     true
   end
 
@@ -70,7 +72,13 @@ class Board
 
   private
 
-  def setup_kings
+  def path_clear?(piece, destination)
+    path = piece.path_to(destination)
+    path.each { |spot| return false unless state[spot].nil? }
+    true
+  end
+
+  def setup_kings(state)
     @black_king = state[4]
     @white_king = state[60]
     black_king.setup(state[0], state[7], self)
@@ -83,7 +91,7 @@ class Board
             Array.new(32) +
             pawn_row('white', 48) +
             piece_row('white', 56)
-    setup_kings
+    setup_kings(state)
     state
   end
 
