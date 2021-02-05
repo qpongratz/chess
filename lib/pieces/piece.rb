@@ -26,7 +26,7 @@ class Piece
   end
 
   def path_to(position)
-    single_path = sight.keep_if { |path| path.include?(position) }.flatten(1)
+    single_path = sight.select { |path| path.include?(position) }.flatten(1)
     popped_position = single_path.pop until popped_position == position
     single_path
   end
