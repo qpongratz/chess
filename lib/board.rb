@@ -15,7 +15,6 @@ class Board
 
   def initialize(state = default_state)
     @state = state
-    setup_kings
   end
 
   def valid_move?(start, destination, color)
@@ -27,6 +26,7 @@ class Board
     path = piece_to_move.path_to(destination)
     path.each { |spot| return false unless state[spot].nil? }
     # return false if check on color of simulated move
+    # simulate move Board.new(state)
     true
   end
 
@@ -78,11 +78,13 @@ class Board
   end
 
   def default_state
-    piece_row('black', 0) +
-      pawn_row('black', 8) +
-      Array.new(32) +
-      pawn_row('white', 48) +
-      piece_row('white', 56)
+    state = piece_row('black', 0) +
+            pawn_row('black', 8) +
+            Array.new(32) +
+            pawn_row('white', 48) +
+            piece_row('white', 56)
+    setup_kings
+    state
   end
 
   def pawn_row(color, start)
