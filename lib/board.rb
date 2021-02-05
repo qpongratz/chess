@@ -15,6 +15,7 @@ class Board
 
   def initialize(state = default_state)
     @state = state
+    setup_kings
   end
 
   def valid_move?(start, destination, color)
@@ -23,6 +24,10 @@ class Board
     return false if colors_match?(destination, color)
     return false unless piece_to_move.see?({ destination: destination, board: self })
     return false unless path_clear?(piece_to_move, destination)
+
+    test_board = Board.new(state)
+    test_board.move(start, destination)
+    return false if test_board.check?(color)
 
     # return false if check on color of simulated move
     # simulate move Board.new(state)
@@ -78,21 +83,19 @@ class Board
     true
   end
 
-  def setup_kings(state)
-    @black_king = state[4]
-    @white_king = state[60]
+  def setup_kings
+    @black_king ||= state[4]
+    @white_king ||= state[60]
     black_king.setup(state[0], state[7], self)
     white_king.setup(state[56], state[63], self)
   end
 
   def default_state
-    state = piece_row('black', 0) +
-            pawn_row('black', 8) +
-            Array.new(32) +
-            pawn_row('white', 48) +
-            piece_row('white', 56)
-    setup_kings(state)
-    state
+    piece_row('black', 0) +
+      pawn_row('black', 8) +
+      Array.new(32) +
+      pawn_row('white', 48) +
+      piece_row('white', 56)
   end
 
   def pawn_row(color, start)

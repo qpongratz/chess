@@ -11,9 +11,9 @@ class King < Piece
   end
 
   def setup(queen_rook, king_rook, board)
-    @queen_rook = queen_rook
-    @king_rook = king_rook
-    @board = board
+    @queen_rook ||= queen_rook
+    @king_rook ||= king_rook
+    @board ||= board
   end
 
   def transformations
