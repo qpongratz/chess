@@ -39,14 +39,14 @@ class Pawn < Piece
     end
   end
 
+  def space_behind(position)
+    position - (8 * forward)
+  end
+
   private
 
   def en_passant(position)
     @en_passant_position = (sight.flatten.include?(space_behind(position)) ? space_behind(position) : nil)
-  end
-
-  def space_behind(position)
-    position - (8 * forward)
   end
 
   def update_sight

@@ -44,6 +44,13 @@ class Board
     state[start] = nil
     state[destination] = piece_to_move
     piece_to_move.position = (destination)
+    en_passant(piece_to_move, destination)
+  end
+
+  def en_passant(piece_to_move, destination)
+    if piece_to_move.instance_of?(Pawn) && destination == en_passant_position
+      state[piece_to_move.space_behind(destination)] = nil
+    end
     @en_passant_position = piece_to_move.en_passant_position
   end
 
