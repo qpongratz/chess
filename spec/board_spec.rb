@@ -54,11 +54,11 @@ describe Board do
       end
     end
     context 'Move will put player making move in check' do
-      xit 'Returns false' do
+      it 'Returns false' do
         allow(board).to receive(:state).and_return([white_piece, nil, nil])
         allow(white_piece).to receive(:see?).and_return(true)
         allow(white_piece).to receive(:path_to).and_return([1])
-        # setup stub for check to return false
+        allow(board).to receive(:in_check_when_moved?).and_return(true)
         result = board.valid_move?(0, 2, 'white')
         expect(result).to be false
       end
@@ -68,12 +68,14 @@ describe Board do
         allow(board).to receive(:state).and_return([white_piece, nil, nil])
         allow(white_piece).to receive(:see?).and_return(true)
         allow(white_piece).to receive(:path_to).and_return([1])
-        # setup stub for check check whenever that is figured out
+        allow(board).to receive(:in_check_when_moved?).and_return(false)
         result = board.valid_move?(0, 2, 'white')
         expect(result).to be true
       end
     end
   end
+
+  # Add test for in_check_when_moved?
 
   describe '#move' do
     before do
