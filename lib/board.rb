@@ -39,6 +39,12 @@ class Board
     set_promotion
   end
 
+  def promote(choice, color)
+    pieces = [Queen.new(color, promotion), Knight.new(color, promotion), Rook.new(color, promotion), Bishop.new(color, promotion)]
+    piece = pieces[choice - 1]
+    state[promotion] = piece
+  end
+
   def en_passant(piece_to_move, destination)
     if piece_to_move.instance_of?(Pawn) && destination == en_passant_position
       state[piece_to_move.space_behind(destination)] = nil
