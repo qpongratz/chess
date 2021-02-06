@@ -34,8 +34,8 @@ class Game
   end
 
   def turn_text
-    puts "#{current_color}'s turn"
     display_board(board.state)
+    puts "#{current_color}'s turn"
     puts 'You are in check' if board.check?(current_color)
   end
 
