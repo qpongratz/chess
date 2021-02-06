@@ -16,8 +16,28 @@ class King < Piece
     @board ||= board
   end
 
+  def see?(args)
+    board = args[:board]
+    destination = args[:destination]
+  end
+
   def transformations
-    orthogonal + diagonal
+    orthogonal + diagonal + castling
+  end
+
+  def castling
+    moves = []
+    moves.push([2, 0]) if king_castle?
+    moves.push([-2, 0]) if queen_castle?
+    moves
+  end
+
+  def queen_castle?
+    !(moved || queen_rook.moved)
+  end
+
+  def king_castle?
+    !(moved || king_rook.moved)
   end
 
   def to_s
