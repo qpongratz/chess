@@ -25,17 +25,8 @@ class Board
     return false if colors_match?(destination, color)
     return false unless piece_to_move.see?({ destination: destination, board: self })
     return false unless path_clear?(piece_to_move, destination)
+    return false if in_check_when_moved?(start, destination, color)
 
-    test_state = state.map(&:clone)
-    test_board = Board.new(test_state)
-    test_board.move(start, destination)
-    return false if test_board.check?(color)
-
-    # return false if check on color of simulated move
-    # simulate move Board.new(state)
-    # in test_board do .move(start, destination)
-    # then check? for color
-    # if true, return false, if false we good to go baby
     true
   end
 
@@ -85,6 +76,13 @@ class Board
   end
 
   private
+
+  def in_check_when_moved?(start, destination, color)
+    test_state = state.map(&:clone)
+    test_board = Board.new(test_state)
+    test_board.move(start, destination)
+    test_board.check?(color)
+  end
 
   def find_kings
     state.each do |spot|
