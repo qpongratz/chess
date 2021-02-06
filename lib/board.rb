@@ -100,10 +100,8 @@ class Board
   end
 
   def setup_kings
-    @black_king ||= state[4]
-    @white_king ||= state[60]
-    black_king.setup(state[0], state[7], self)
-    white_king.setup(state[56], state[63], self)
+    @black_king ||= King.new('black', 4, state[0], state[7], self)
+    @white_king ||= King.new('white', 60, state[56], state[63], self)
   end
 
   def default_state
@@ -133,7 +131,7 @@ class Board
      Knight.new(color, start + 1),
      Bishop.new(color, start + 2),
      Queen.new(color, start + 3),
-     King.new(color, start + 4),
+     nil,
      Bishop.new(color, start + 5),
      Knight.new(color, start + 6),
      Rook.new(color, start + 7)]
