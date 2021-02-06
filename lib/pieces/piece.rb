@@ -33,6 +33,10 @@ class Piece
     single_path
   end
 
+  def position_as_index
+    coordinates_to_index(position)
+  end
+
   private
 
   def orthogonal
