@@ -100,8 +100,8 @@ class Board
   end
 
   def setup_kings
-    @black_king ||= King.new('black', 4, state[0], state[7], self)
-    @white_king ||= King.new('white', 60, state[56], state[63], self)
+    @black_king ||= (state[4] = King.new('black', 4, state[0], state[7], self))
+    @white_king ||= (state[60] = King.new('white', 60, state[56], state[63], self))
   end
 
   def default_state
