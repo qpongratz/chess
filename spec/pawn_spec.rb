@@ -33,12 +33,6 @@ describe Pawn do
     end
   end
   describe '#position=' do
-    context 'Pawn has not moved' do
-      it 'Moved is false' do
-        moved = white_pawn.moved
-        expect(moved).to be false
-      end
-    end
     context 'Pawn moves forward one' do
       before do
         white_pawn.position = (46)
@@ -50,10 +44,6 @@ describe Pawn do
       it 'Position is new position' do
         position = white_pawn.position
         expect(position).to eq([6, 5])
-      end
-      it 'Moved is true' do
-        moved = white_pawn.moved
-        expect(moved).to be true
       end
     end
     context 'Pawn moves forward two' do
