@@ -14,7 +14,6 @@ class King < Piece
     @queen_rook ||= queen_rook
     @king_rook ||= king_rook
     @board ||= board
-    # probably don't need board here actually
   end
 
   def position=(position)
@@ -25,7 +24,8 @@ class King < Piece
   end
 
   def castle_execute
-    board.move(castle_rook, castle_rook)
+    board.move(castle_point, castle_rook)
+    @castle_point = nil
   end
 
   def see?(args)
