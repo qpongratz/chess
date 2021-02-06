@@ -10,10 +10,11 @@ class King < Piece
     @range = 1
   end
 
-  def setup(queen_rook, king_rook, board)
-    @queen_rook ||= queen_rook
-    @king_rook ||= king_rook
-    @board ||= board
+  def initialize(color, position, queen_rook, king_rook, board)
+    @queen_rook = queen_rook
+    @king_rook = king_rook
+    @board = board
+    super(color, position)
   end
 
   def position=(position)
