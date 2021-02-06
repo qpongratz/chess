@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'piece'
+require 'pry'
 
 # Controls rook specific bits.
 class King < Piece
@@ -25,14 +26,14 @@ class King < Piece
   end
 
   def castle_execute
-    board.move(castle_point, castle_rook)
+    board.move(castle_rook.position_as_index, castle_point)
     @castle_point = nil
   end
 
   def see?(args)
     update_sight
     destination = args[:destination]
-    return false unless sight.flatten(1).include(args[:destination])
+    return false unless sight.flatten(1).include?(destination)
 
     if ((position_as_index + 2) == destination) || ((position_as_index - 2) == destination)
       castle_check(destination)
@@ -46,11 +47,11 @@ class King < Piece
     mid_point = (position_as_index > destination ? (position_as_index - 1) : (position_as_index + 1))
 
     if !mate_during_castle?(mid_point, destination) && board.valid_move?(rook.position_as_index, mid_point, color)
-      false
-    else
       @castle_point = mid_point
       @castle_rook = rook
       true
+    else
+      false
     end
   end
 
