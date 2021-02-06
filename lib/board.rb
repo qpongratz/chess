@@ -75,14 +75,14 @@ class Board
     end
   end
 
-  private
-
   def in_check_when_moved?(start, destination, color)
     test_state = state.map(&:clone)
     test_board = Board.new(test_state)
     test_board.move(start, destination)
     test_board.check?(color)
   end
+
+  private
 
   def find_kings
     state.each do |spot|
