@@ -11,13 +11,11 @@ class Pawn < Piece
     @range = 1
     @forward = (color == 'white' ? -1 : 1)
     @enemy_color = (color == 'white' ? 'black' : 'white')
-    @moved = false
   end
 
   def position=(position)
     en_passant(position)
     @position = index_to_coordinates(position)
-    @moved = true
     update_sight
   end
 

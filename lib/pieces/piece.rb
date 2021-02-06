@@ -6,18 +6,20 @@ require_relative '../conversions'
 class Piece
   include Conversions
 
-  attr_reader :color, :position, :sight, :range, :en_passant_position
+  attr_reader :color, :position, :sight, :range, :en_passant_position, :moved
 
   def initialize(color, position)
     @color = color
     @position = index_to_coordinates(position)
     @range = 7
+    @moved = false
     post_initialize
     update_sight
   end
 
   def position=(position)
     @position = index_to_coordinates(position)
+    @moved = true
     update_sight
   end
 
