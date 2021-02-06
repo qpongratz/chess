@@ -11,7 +11,7 @@ require 'pry'
 
 # Manages board state
 class Board
-  attr_reader :state, :en_passant_position, :white_king, :black_king
+  attr_reader :state, :en_passant_position, :white_king, :black_king, :promotion
 
   def initialize(state = nil)
     @state = state
@@ -36,6 +36,7 @@ class Board
     state[destination] = piece_to_move
     piece_to_move.position = (destination)
     en_passant(piece_to_move, destination)
+    set_promotion
   end
 
   def en_passant(piece_to_move, destination)
@@ -83,6 +84,15 @@ class Board
   end
 
   private
+
+  def set_promotion
+    @promotion = nil
+    state.each_with_index do |piece, index|
+      next unless index < 8 || index > 55
+
+      @promotion = index if piece.instance_of?(Pawn)
+    end
+  end
 
   def find_kings
     state.each do |spot|
