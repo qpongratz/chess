@@ -4,7 +4,7 @@ require_relative 'piece'
 
 # Controls rook specific bits.
 class King < Piece
-  attr_reader :queen_rook, :king_rook, :board
+  attr_reader :queen_rook, :king_rook, :board, :castle_point, :castle_rook
 
   def post_initialize
     @range = 1
@@ -15,6 +15,17 @@ class King < Piece
     @king_rook ||= king_rook
     @board ||= board
     # probably don't need board here actually
+  end
+
+  def position=(position)
+    @position = index_to_coordinates(position)
+    @moved = true
+    castle_execute unless castle_point.nil?
+    update_sight
+  end
+
+  def castle_execute
+    board.move(castle_rook, castle_rook)
   end
 
   def see?(args)
@@ -36,7 +47,8 @@ class King < Piece
     if !mate_during_castle?(mid_point, destination) && board.valid_move?(rook.position_as_index, mid_point, color)
       false
     else
-      @castled = true
+      @castle_point = mid_point
+      @castle_rook = rook
       true
     end
   end
