@@ -112,7 +112,7 @@ describe Pawn do
           args = { board: board, destination: 10 }
           result = black_pawn.see?(args)
           expect(result).to be false
-        end  
+        end
       end
       context 'Enemy pieces in diagonals' do
         before do

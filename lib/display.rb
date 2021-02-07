@@ -65,7 +65,7 @@ module Display
 
   def display_save_select(hash)
     puts 'Enter the number of the save you would like to select'
-    hash.each { |k, v| puts "#{k} - #{v}"}
+    hash.each { |k, v| puts "#{k} - #{v}" }
   end
 
   def display_mode_prompt

@@ -40,7 +40,11 @@ class Board
   end
 
   def promote(choice, color)
-    pieces = [Queen.new(color, promotion), Knight.new(color, promotion), Rook.new(color, promotion), Bishop.new(color, promotion)]
+    pieces =
+      [Queen.new(color, promotion),
+       Knight.new(color, promotion),
+       Rook.new(color, promotion),
+       Bishop.new(color, promotion)]
     piece = pieces[choice - 1]
     state[promotion] = piece
   end
