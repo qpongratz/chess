@@ -19,9 +19,11 @@ module SaveHandler
   end
 
   def load_game(file)
-    loaded_variables = YAML.load(File.open("saves/#{file}", 'r').read)
+    loaded_variables = YAML.safe_load(File.open("saves/#{file}", 'r').read, ALLOWED_CLASSES, aliases: true)
     loaded_variables.each do |key, value|
       instance_variable_set(key, value)
     end
   end
+
+  ALLOWED_CLASSES = [Symbol, Board, Rook, Knight, Queen, Pawn, Bishop, King, Player].freeze
 end
