@@ -30,24 +30,27 @@ class Player
 
   private
 
-  def choose_promotion(input = '')
+  def choose_promotion
     display_promotion_options
+    input = gets.chomp
     input = gets.chomp until input_valid_promotion?(input)
     input.to_i
   end
 
-  def input(input = '')
+  def input
     display_input_prompt
+    input = gets.chomp.downcase
     input = gets.chomp.downcase until input_valid_move?(input)
     input.split(' ')
   end
 
   def input_valid_move?(input)
-    input.match(/[a-h][1-8] [a-h][1-8]/i) ||
-      input == 'save'
+    input.match?(/[a-h][1-8] [a-h][1-8]/i) ||
+      input == 'save' ||
+      (puts 'Invalid Input')
   end
 
   def input_valid_promotion?(input)
-    input.match(/[1-4]/)
+    input.match?(/[1-4]/) || (puts 'Invalid Input')
   end
 end
