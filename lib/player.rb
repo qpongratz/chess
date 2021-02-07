@@ -7,7 +7,7 @@ require_relative 'conversions'
 class Player
   include Conversions
   include Display
-  attr_reader :color
+  attr_reader :color, :coordinates
 
   def initialize(color)
     @color = color
@@ -15,20 +15,31 @@ class Player
 
   def input_move(board)
     loop do
-      coordinates = input
+      @coordinates = input
       return 'save' if coordinates[0] == 'save'
 
-      start = player_input_to_index(coordinates[0])
-      destination = player_input_to_index(coordinates[1])
-      next unless board.valid_move?(start, destination, color)
+      break if board.valid_move?(start, destination, color)
 
-      board.move(start, destination)
-      board.promote(choose_promotion, color) unless board.promotion.nil?
-      break
+      puts 'Invalid Move'
+      next
     end
+    move(board)
   end
 
   private
+
+  def move(board)
+    board.move(start, destination)
+    board.promote(choose_promotion, color) unless board.promotion.nil?
+  end
+
+  def start
+    player_input_to_index(coordinates[0])
+  end
+
+  def destination
+    player_input_to_index(coordinates[1])
+  end
 
   def choose_promotion
     display_promotion_options
