@@ -1,9 +1,9 @@
 # chess
-Command line chess game built with Ruby.  Built as a learning project for The Odin Project
+Command line chess game built with Ruby.  Built as a learning project for [The Odin Project](https://www.theodinproject.com/lessons/ruby-final-project).
 
 ## Instructions
----
 - The basic rules of chess can be found [here](https://www.chessvariants.com/d.chess/chess.html).
+- To play, clone the repository, cd into the directory and run `ruby lib/main.rb` or check out a live version at my [repl.it](https://repl.it/@QuentinPongratz/chess#README.md)
 - The colors of the pieces do not necessarily match the colors used in prompts due to terminal settings. The 'white' pieces are those on the bottom of the board displayed with just outlines on the characters, and the 'black' pieces are those that start at the top of the board with their characters filled.
 - In order to castle, input the correct destination for the king, and the rook will move where it needs to if you are able to castle.
 
