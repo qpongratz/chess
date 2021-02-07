@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'piece'
-require 'pry'
 
 # Controls rook specific bits.
 class Pawn < Piece
