@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
+require_relative 'display'
 require_relative 'conversions'
 
 # Handles player inputs
 class Player
   include Conversions
+  include Display
   attr_reader :color
 
   def initialize(color)
@@ -14,7 +16,6 @@ class Player
   def input_move(board)
     loop do
       coordinates = input
-      p coordinates
       return 'save' if coordinates[0] == 'save'
 
       start = player_input_to_index(coordinates[0])
@@ -30,8 +31,7 @@ class Player
   private
 
   def choose_promotion(input = '')
-    #display_promotion_options
-    puts "1, queen. 2, knight, 3, rook, 4, bishop"
+    display_promotion_options
     input = gets.chomp until input_valid_promotion?(input)
     input.to_i
   end
