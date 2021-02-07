@@ -41,7 +41,7 @@ module Display
   def display_input_prompt
     puts <<~HEREDOC
       Input start and end coordinates space separated. Example: 'A2 A4'
-      You may also save your game by typing 'Save'. All inputs case insensitive.
+      You may also save your game by typing 'Save'. All inputs are case insensitive.
     HEREDOC
   end
 
@@ -77,5 +77,4 @@ module Display
   def display_invalid_input
     puts 'Invalid input.'
   end
-
 end
