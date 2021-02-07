@@ -21,7 +21,6 @@ class Player
       break if board.valid_move?(start, destination, color)
 
       puts 'Invalid Move'
-      next
     end
     move(board)
   end
