@@ -37,7 +37,7 @@ class Player
   end
 
   def input(input = '')
-    puts 'Input your start and end positions space separated Example: "A4 B2"'
+    display_input_prompt
     input = gets.chomp.downcase until input_valid_move?(input)
     input.split(' ')
   end
