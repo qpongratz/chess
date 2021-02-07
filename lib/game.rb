@@ -3,10 +3,12 @@
 require_relative 'board'
 require_relative 'player'
 require_relative 'display'
+require_relative 'save_handler'
 
 # Controls the flow of the game.
 class Game
   include Display
+  include SaveHandler
   attr_reader :players, :board
 
   def initialize
@@ -18,7 +20,7 @@ class Game
     until board.no_moves?(current_color) == true
       turn_text
       status = current_player.input_move(board)
-      return save if status == 'save'
+      return save_game if status == 'save'
 
       players.rotate!
     end
@@ -26,10 +28,6 @@ class Game
   end
 
   private
-
-  def save
-    puts 'You savea the game. Now how do we break out of the turn loop?'
-  end
 
   def current_color
     current_player.color
