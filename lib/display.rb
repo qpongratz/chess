@@ -49,7 +49,7 @@ module Display
     puts "#{loser.capitalize} is in checkmate. #{winner.capitalize} has won. Congratz!"
   end
 
-  def display_stalemate
+  def display_stalemate(color)
     puts "#{color.capitalize} has no legal moves yet is not in check. Stalemate. This game is a draw."
   end
 

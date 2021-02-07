@@ -16,12 +16,12 @@ describe Game do
     allow(board).to receive(:state).and_return([nil])
     game.instance_variable_set(:@players, [white_player, black_player])
     game.instance_variable_set(:@board, board)
+    allow(white_player).to receive(:color).and_return('white')
+    allow(black_player).to receive(:color).and_return('black')
   end
   context 'There are still moves that can be made' do
     before do
       allow(board).to receive(:check?)
-      allow(white_player).to receive(:color)
-      allow(black_player).to receive(:color)
       allow(white_player).to receive(:input_move)
       allow(black_player).to receive(:input_move)
     end
@@ -46,8 +46,6 @@ describe Game do
   context 'There are no moves to be made' do
     before do
       allow(board).to receive(:no_moves?).and_return(true)
-      allow(white_player).to receive(:color)
-      allow(black_player).to receive(:color)
     end
     it 'Calls checkmate if current player is in check' do
       allow(board).to receive(:check?).and_return(true)
@@ -57,6 +55,17 @@ describe Game do
     it 'Calls stalemate if current_player is not in check' do
       allow(board).to receive(:check?).and_return(false)
       expect(game).to receive(:stalemate)
+      game.turn
+    end
+  end
+  context 'Game is saved if player returns "save"' do
+    before do
+      allow(board).to receive(:no_moves?).and_return(false)
+      allow(board).to receive(:check?)
+      allow(white_player).to receive(:input_move).and_return('save')
+    end
+    it 'Calls save_game method' do
+      expect(game).to receive(:save_game)
       game.turn
     end
   end
