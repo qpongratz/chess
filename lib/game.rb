@@ -17,13 +17,19 @@ class Game
   def turn
     until board.no_moves?(current_color) == true
       turn_text
-      current_player.input_move(board)
+      status = current_player.input_move(board)
+      return save if status == 'save'
+      
       players.rotate!
     end
     board.check?(current_color) ? checkmate : stalemate
   end
 
   private
+
+  def save
+    puts 'You savea the game. Now how do we break out of the turn loop?'
+  end
 
   def current_color
     current_player.color
