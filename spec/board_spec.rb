@@ -100,6 +100,19 @@ describe Board do
         expect(result).to eq([nil, nil, white_piece])
       end
     end
+    context 'A pawn moves onto a back row' do
+      before do
+        fake_state = Array.new(64)
+        fake_state[8] = white_piece
+        allow(white_piece).to receive(:instance_of?).and_return(Pawn)
+        allow(board).to receive(:state).and_return(fake_state)
+      end
+      it 'Promotion stores the index of that pawn' do
+        board.move(8, 0)
+        result = board.promotion
+        expect(result).to eq(0)
+      end
+    end
   end
 
   describe '#en_passant' do
