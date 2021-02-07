@@ -27,4 +27,34 @@ module Display
     HEREDOC
   end
   # rubocop: enable Metrics/AbcSize
+
+  def display_promotion_options
+    puts <<-HEREDOC
+    Your pawn has reached the back row. Enter a number to choose what to promote to:
+    1. Queen
+    2. Knight
+    3. Rook
+    4. Bishop
+    HEREDOC
+  end
+
+  def display_input_prompt
+    puts <<-HEREDOC
+    Input start and end coordinates space separated. Example: 'A2 A4'
+    You may also save your game by typing 'Save'. All inputs case insensitive.
+    HEREDOC
+  end
+
+  def display_checkmate(loser, winner)
+    puts "#{loser} is in checkmate. #{winner} has won. Congratz!"
+  end
+
+  def display_stalemate
+    puts "#{color} has no legal moves yet is not in check. Stalemate. This game is a draw."
+  end
+
+  def display_turn(color, check)
+    puts "#{color}'s turn to make a move."
+    puts "#{color} is in check" if check == true
+  end
 end
