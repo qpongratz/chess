@@ -29,19 +29,19 @@ module Display
   # rubocop: enable Metrics/AbcSize
 
   def display_promotion_options
-    puts <<-HEREDOC
-    Your pawn has reached the back row. Enter a number to choose what to promote to:
-    1. Queen
-    2. Knight
-    3. Rook
-    4. Bishop
+    puts <<~HEREDOC
+      Your pawn has reached the back row. Enter a number to choose what to promote to:
+      1. Queen
+      2. Knight
+      3. Rook
+      4. Bishop
     HEREDOC
   end
 
   def display_input_prompt
-    puts <<-HEREDOC
-    Input start and end coordinates space separated. Example: 'A2 A4'
-    You may also save your game by typing 'Save'. All inputs case insensitive.
+    puts <<~HEREDOC
+      Input start and end coordinates space separated. Example: 'A2 A4'
+      You may also save your game by typing 'Save'. All inputs case insensitive.
     HEREDOC
   end
 
@@ -56,5 +56,10 @@ module Display
   def display_turn(color, check)
     puts "#{color}'s turn to make a move."
     puts "#{color} is in check" if check == true
+  end
+
+  def display_save_success(file_name)
+    puts "Your game was successfully saved as #{file_name}"
+    puts 'Thank you for playing!'
   end
 end
