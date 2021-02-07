@@ -73,11 +73,3 @@ class Pawn < Piece
     moves
   end
 end
-
-# my_pawn = Pawn.new('white', 63)
-# p my_pawn.sight
-# p my_pawn.en_passant_position
-# p my_pawn.position = (47)
-# p my_pawn.en_passant_position
-# p my_pawn.position = (38)
-# p my_pawn.en_passant_position
