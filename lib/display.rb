@@ -46,20 +46,36 @@ module Display
   end
 
   def display_checkmate(loser, winner)
-    puts "#{loser} is in checkmate. #{winner} has won. Congratz!"
+    puts "#{loser.capitalize} is in checkmate. #{winner.capitalize} has won. Congratz!"
   end
 
   def display_stalemate
-    puts "#{color} has no legal moves yet is not in check. Stalemate. This game is a draw."
+    puts "#{color.capitalize} has no legal moves yet is not in check. Stalemate. This game is a draw."
   end
 
   def display_turn(color, check)
-    puts "#{color}'s turn to make a move."
-    puts "#{color} is in check" if check == true
+    puts "#{color.capitalize}'s turn to make a move."
+    puts "#{color.capitalize} is in check" if check == true
   end
 
   def display_save_success(file_name)
     puts "Your game was successfully saved as #{file_name}"
     puts 'Thank you for playing!'
   end
+
+  def display_save_select(hash)
+    puts 'Enter the number of the save you would like to select'
+    hash.each { |k, v| puts "#{k} - #{v}"}
+  end
+
+  def display_mode_prompt
+    puts 'Would you like to start a new game, load a previous game?'
+    puts '1 - Start a new game'
+    puts '2 - Load a game'
+  end
+
+  def display_invalid_input
+    puts 'Invalid input.'
+  end
+
 end
