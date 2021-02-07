@@ -19,7 +19,7 @@ class Game
       turn_text
       status = current_player.input_move(board)
       return save if status == 'save'
-      
+
       players.rotate!
     end
     board.check?(current_color) ? checkmate : stalemate
@@ -39,17 +39,20 @@ class Game
     players[0]
   end
 
+  def next_color
+    players[1].color
+  end
+
   def turn_text
     display_board(board.state)
-    puts "#{current_color}'s turn"
-    puts 'You are in check' if board.check?(current_color)
+    display_turn(current_color, board.check?(current_color))
   end
 
   def checkmate
-    puts 'Checkmate. You lost and you won.'
+    display_checkmate(current_color, next_color)
   end
 
   def stalemate
-    puts 'Stalemate; no one wins'
+    display_stalemate(current_color)
   end
 end
