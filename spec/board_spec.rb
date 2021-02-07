@@ -75,8 +75,6 @@ describe Board do
     end
   end
 
-  # Add test for in_check_when_moved?
-
   describe '#move' do
     before do
       allow(board).to receive(:state).and_return([white_piece, nil, nil])
@@ -100,6 +98,34 @@ describe Board do
         board.move(0, 2)
         result = board.state
         expect(result).to eq([nil, nil, white_piece])
+      end
+    end
+  end
+
+  describe '#en_passant' do
+    let(:white_pawn) { instance_double(Pawn) }
+    let(:black_pawn) { instance_double(Pawn) }
+    before do
+      fake_state = [nil, nil, white_piece, nil, nil, nil, nil, white_pawn, black_pawn]
+      allow(board).to receive(:en_passant_position).and_return(6)
+      allow(white_pawn).to receive(:space_behind).and_return(8)
+      allow(white_pawn).to receive(:en_passant_position)
+      allow(white_pawn).to receive(:instance_of?).and_return(Pawn)
+      allow(white_piece).to receive(:en_passant_position)
+      allow(board).to receive(:state).and_return(fake_state)
+    end
+    context 'Piece was pawn and attacked en passant' do
+      it 'Pawn that moved double is removed' do
+        board.en_passant(white_pawn, 6)
+        result = board.state[8]
+        expect(result).to be nil
+      end
+    end
+    context 'Piece is not pawn and moves to en passant square' do
+      it 'Does not affect pawn that moved double' do
+        board.en_passant(white_piece, 6)
+        result = board.state[8]
+        expect(result).to eq(black_pawn)
       end
     end
   end
