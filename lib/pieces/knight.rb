@@ -4,7 +4,6 @@ require_relative 'piece'
 
 # Controls rook specific bits.
 class Knight < Piece
-
   def post_initialize
     @range = 1
   end
